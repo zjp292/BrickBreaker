@@ -21,6 +21,6 @@ public class gameBoard {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setVisible(true);
         window.setResizable(false);
-        window.setSize(1200,1000);
+        window.setSize(800,800);
     }
 }

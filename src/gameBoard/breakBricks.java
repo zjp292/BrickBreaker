@@ -13,18 +13,56 @@ public class breakBricks extends JPanel implements KeyListener {
     //store total bricks in array list
     ArrayList<square> currentBricks = new ArrayList<square>();
 
-    square blue = new square(175,480,150,25, "C:/Users/zachp/OneDrive/Desktop/BS.png");
+    square blue = new square(175,700,150,25, "C:/Users/zachp/OneDrive/Desktop/BS.png");
 
     //create a ball
     square breaker = new square(237,435, 25, 25, "C:/Users/zachp/OneDrive/Desktop/ball.png");
 
     breakBricks(){
+        setBackground(Color.DARK_GRAY);
+        //add squares
+        for(int index = 0; index < 32; index ++)
+        {
+            currentBricks.add(new square((index * 25), 0, 25, 25, "src/resources/brick1.png"));
+        }
+        for(int index = 0; index < 32; index ++)
+        {
+            currentBricks.add(new square((index * 25), 25, 25, 25, "src/resources/brick2.png"));
+        }
+        for(int index = 0; index < 32; index ++)
+        {
+            currentBricks.add(new square((index * 25), 50, 25, 25, "src/resources/brick3.png"));
+        }
+        for(int index = 0; index < 32; index ++)
+        {
+            currentBricks.add(new square((index * 25), 75, 25, 25, "src/resources/brick4.png"));
+        }
+        for(int index = 0; index < 32; index ++)
+        {
+            currentBricks.add(new square((index * 25), 100, 25, 25, "src/resources/brick1.png"));
+        }
+        for(int index = 0; index < 32; index ++)
+        {
+            currentBricks.add(new square((index * 25), 125, 25, 25, "src/resources/brick2.png"));
+        }
+        for(int index = 0; index < 32; index ++)
+        {
+            currentBricks.add(new square((index * 25), 150, 25, 25, "src/resources/brick3.png"));
+        }
+        for(int index = 0; index < 32; index ++)
+        {
+            currentBricks.add(new square((index * 25), 175, 25, 25, "src/resources/brick4.png"));
+        }
+
         addKeyListener(this);
         setFocusable(true);
     }
 
     public void paint(Graphics graphics){
         super.paint(graphics);
+        currentBricks.forEach(square -> {
+            square.createSquare(graphics, this);
+        });
         blue.createSquare(graphics, this);
     }
 
@@ -53,7 +91,7 @@ public class breakBricks extends JPanel implements KeyListener {
             }).start();
         }
 
-        if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+        if(e.getKeyCode() == KeyEvent.VK_RIGHT && blue.x < getWidth() - blue.width){
             update();
             //move to the right
             blue.x = blue.x + 20;
@@ -63,7 +101,8 @@ public class breakBricks extends JPanel implements KeyListener {
 
         }
 
-        if(e.getKeyCode() == KeyEvent.VK_LEFT){
+        if(e.getKeyCode() == KeyEvent.VK_LEFT && blue.x > 0){
+            update();
             blue.x -= 20;
         }
     }
