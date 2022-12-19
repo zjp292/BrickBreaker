@@ -9,14 +9,13 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 public class breakBricks extends JPanel implements KeyListener {
-
     //store total bricks in array list
     ArrayList<square> currentBricks = new ArrayList<square>();
-
     square blue = new square(175,700,150,25, "C:/Users/zachp/OneDrive/Desktop/BS.png");
-
     //create a ball
     square breaker = new square(237,435, 25, 25, "src/resources/ball.png");
+
+    Thread thread;
 
     breakBricks(){
         setBackground(Color.DARK_GRAY);
@@ -77,6 +76,10 @@ public class breakBricks extends JPanel implements KeyListener {
 
         breaker.y += breaker.moveY;
 
+        if(breaker.y > getHeight()){
+            thread.stop();
+        }
+
         currentBricks.forEach(square -> {
             if(breaker.intersects(square) && !square.broken){
                 square.broken = true;
@@ -94,7 +97,7 @@ public class breakBricks extends JPanel implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_SPACE){
-            new Thread(() -> {
+            thread = new Thread(() -> {
                 while(true){
                     update();
                     try{
@@ -104,7 +107,8 @@ public class breakBricks extends JPanel implements KeyListener {
                         error.printStackTrace();
                     }
                 }
-            }).start();
+            });
+            thread.start();
         }
 
         if(e.getKeyCode() == KeyEvent.VK_RIGHT && blue.x < getWidth() - blue.width){
