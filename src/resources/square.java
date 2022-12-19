@@ -9,8 +9,9 @@ import java.io.IOException;
 
 
 public class square extends Rectangle {
-    boolean broken;
+    public boolean broken;
     Image squarePNG;
+    public int moveX, moveY;
 
 
     public square(int x, int y, int w, int h, String location){
@@ -18,6 +19,8 @@ public class square extends Rectangle {
         this.y = y;
         this.width = w;
         this.height = h;
+        moveX = 3;
+        moveY = 3;
 
         try {
             squarePNG = ImageIO.read(new File(location));

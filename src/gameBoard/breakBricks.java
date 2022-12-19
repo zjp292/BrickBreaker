@@ -16,7 +16,7 @@ public class breakBricks extends JPanel implements KeyListener {
     square blue = new square(175,700,150,25, "C:/Users/zachp/OneDrive/Desktop/BS.png");
 
     //create a ball
-    square breaker = new square(237,435, 25, 25, "C:/Users/zachp/OneDrive/Desktop/ball.png");
+    square breaker = new square(237,435, 25, 25, "src/resources/ball.png");
 
     breakBricks(){
         setBackground(Color.DARK_GRAY);
@@ -64,9 +64,25 @@ public class breakBricks extends JPanel implements KeyListener {
             square.createSquare(graphics, this);
         });
         blue.createSquare(graphics, this);
+        breaker.createSquare(graphics, this);
     }
 
     public void update() {
+        breaker.x += breaker.moveX;
+
+        if((breaker.x > (getWidth() - 25)) || breaker.x < 0)
+            breaker.moveX *= -1;
+        if(breaker.y < 0 || breaker.intersects(blue))
+            breaker.moveY *= -1;
+
+        breaker.y += breaker.moveY;
+
+        currentBricks.forEach(square -> {
+            if(breaker.intersects(square) && !square.broken){
+                square.broken = true;
+                breaker.moveY *= -1;
+            }
+        });
         repaint();
     }
 
@@ -94,7 +110,7 @@ public class breakBricks extends JPanel implements KeyListener {
         if(e.getKeyCode() == KeyEvent.VK_RIGHT && blue.x < getWidth() - blue.width){
             update();
             //move to the right
-            blue.x = blue.x + 20;
+            blue.x = blue.x + 30;
 
 
             //reset size to avoid a trail
@@ -103,7 +119,7 @@ public class breakBricks extends JPanel implements KeyListener {
 
         if(e.getKeyCode() == KeyEvent.VK_LEFT && blue.x > 0){
             update();
-            blue.x -= 20;
+            blue.x -= 30;
         }
     }
 
