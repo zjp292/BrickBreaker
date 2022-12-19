@@ -24,6 +24,7 @@ public class breakBricks extends JPanel implements KeyListener {
     }
 
     public void paint(Graphics graphics){
+        super.paint(graphics);
         blue.createSquare(graphics, this);
     }
 
