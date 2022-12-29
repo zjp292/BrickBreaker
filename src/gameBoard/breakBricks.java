@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class breakBricks extends JPanel implements KeyListener {
     //store total bricks in array list
     ArrayList<square> currentBricks = new ArrayList<square>();
-    square blue = new square(175,700,150,25, "C:/Users/zachp/OneDrive/Desktop/BS.png");
+    square blue = new square(175,700,150,25, "src/resources/BS.png");
     //create a ball
     square breaker = new square(237,435, 25, 25, "src/resources/ball.png");
 
